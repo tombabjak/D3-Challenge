@@ -23,7 +23,6 @@ var chartGroup = svg.append("g")
 
 var chosenXAxis = "poverty";
 
-// function used for updating x-scale var upon click on axis label
 function xScale(stateData, chosenXAxis) {
     var xLinearScale = d3.scaleLinear()
         .domain([d3.min(stateData, d => d[chosenXAxis]) * 0.9, d3.max(stateData, d => d[chosenXAxis]) * 1.1])
@@ -31,7 +30,6 @@ function xScale(stateData, chosenXAxis) {
     return xLinearScale;
 }
 
-// function used for updating xAxis var upon click on axis label
 function renderX(newXScale, xAxis) {
     var bottomAxis = d3.axisBottom(newXScale);
     xAxis.transition()
@@ -42,7 +40,6 @@ function renderX(newXScale, xAxis) {
 
 var chosenYAxis = "healthcare";
 
-// function used for updating y-scale var upon click on axis label
 function yScale(stateData, chosenXAxis) {
     var yLinearScale = d3.scaleLinear()
         .domain([d3.min(stateData, d => d[chosenYAxis]) * 0.9, d3.max(stateData, d => d[chosenYAxis]) * 1.1])
@@ -50,7 +47,6 @@ function yScale(stateData, chosenXAxis) {
     return yLinearScale;
 }
 
-// function used for updating yAxis var upon click on axis label
 function renderY(newYScale, yAxis) {
     var leftAxis = d3.axisLeft(newYScale);
     yAxis.transition()
@@ -59,7 +55,6 @@ function renderY(newYScale, yAxis) {
     return yAxis;
 }
 
-// function used for updating circles group with a transition to new circles
 function renderCircles(circlesGroup, newXScale, chosenXAxis, newYScale, chosenYAxis) {
     circlesGroup.transition()
         .duration(1000)
@@ -76,7 +71,6 @@ function renderAbbr(abbrGroup, newXScale, chosenXAxis, newYScale, chosenYAxis) {
     return abbrGroup;
 }
 
-// function used for updating circles group with new tooltip
 function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, abbrGroup) {
     var xlabel;
     if (chosenXAxis === "poverty") {
@@ -98,6 +92,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, abbrGroup) {
   
     var toolTip = d3.tip()
         .attr("class", "d3-tip")
+        .offset([0, 0])
         .html(function(d) {
             return (`${d.abbr}<br>${xlabel} ${d[chosenXAxis]}<br>${ylabel} ${d[chosenYAxis]}`);
         });
@@ -107,14 +102,14 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, abbrGroup) {
     abbrGroup.call(toolTip);
   
     circlesGroup.on("mouseover", function(data) {
-        toolTip.show(data);
+        toolTip.show(data, this);
     })
     .on("mouseout", function(data, index) {
         toolTip.hide(data);
     });
   
     abbrGroup.on("mouseover", function(data) {
-        toolTip.show(data);
+        toolTip.show(data, this);
     })
     .on("mouseout", function(data, index) {
         toolTip.hide(data);
