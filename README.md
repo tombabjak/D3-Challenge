@@ -5,9 +5,9 @@ D3 Homework - Data Journalism and D3
 
 Core Assignment: D3 Dabbler   
 
-WebPage: index.html
-Code: app.js
-Data: data.csv
+WebPage: index.html   
+Code: app.js   
+Data: data.csv   
 Styling:   
  - d3Style.css
  - style.css
