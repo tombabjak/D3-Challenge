@@ -1,10 +1,10 @@
 // @TODO: YOUR CODE HERE!
-var svgWidth = 855;
-var svgHeight = 655;
+var svgWidth = 900;
+var svgHeight = 600;
 
 var margin = {
     top: 20,
-    right: 40,
+    right: 100,
     bottom: 100,
     left: 100
 };
@@ -102,9 +102,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, abbrGroup) {
     abbrGroup.call(toolTip);
   
     circlesGroup.on("mouseover", function(data) {
-        toolTip.show(data, this),
-        circlesGroup.fill(`#89bdd3`).stroke(`#000000`).stroke.width(1).opacity(1);
-    
+        toolTip.show(data, this)
     })
     .on("mouseout", function(data, index) {
         toolTip.hide(data);
@@ -152,8 +150,7 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
         .classed("stateCircle",true)
         .attr("cx", d => xLinearScale(d[chosenXAxis]))
         .attr("cy", d => yLinearScale(d[chosenYAxis]))
-        .attr("value", "circle")
-        .attr("r", "15")
+        .attr("r", "12")
         .attr("opacity", 0.75)
 
     var abbrGroup = chartGroup.append("g")
@@ -162,7 +159,6 @@ d3.csv("assets/data/data.csv").then(function(stateData) {
         .enter().append("text")
         .attr("x", d => xLinearScale(d[chosenXAxis]))
         .attr("y", d => yLinearScale(d[chosenYAxis])+5)
-        .attr("value", "abbr")
         .classed("stateText", true)
         .text(data => data.abbr);
 
