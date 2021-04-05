@@ -102,7 +102,9 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, abbrGroup) {
     abbrGroup.call(toolTip);
   
     circlesGroup.on("mouseover", function(data) {
-        toolTip.show(data, this);
+        toolTip.show(data, this),
+        circlesGroup.fill(`#89bdd3`).stroke(`#000000`).stroke.width(1).opacity(1);
+    
     })
     .on("mouseout", function(data, index) {
         toolTip.hide(data);
